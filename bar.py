@@ -17,6 +17,9 @@ class Bar:
         self.x = WINDOW_WIDTH // 2 - BAR_WIDTH/2
         self.y = (WINDOW_HEIGHT - WINDOW_HEIGHT*(1/10)) - BAR_HEIGHT/2
 
+        #Adding this so it can make interactions with the ball
+        self.rect = Rect(self.x, self.y, BAR_WIDTH, BAR_HEIGHT)
+
     def draw(self, screen):
         screen.draw.filled_rect(Rect(self.x, self.y, BAR_WIDTH, BAR_HEIGHT), BAR_COLOR)
 
@@ -27,6 +30,8 @@ class Bar:
         elif direction == 'right':
             if self.x + BAR_WIDTH < 1200:
                 self.x += BAR_SPEED
+        
+        self.rect.x = self.x
     
     def update(self):
         if keyboard.is_pressed('left'):

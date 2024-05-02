@@ -9,7 +9,7 @@ WINDOW_HEIGHT = 600
 BAR_WIDTH = 150
 BAR_HEIGHT = 20
 
-SPEED = 10
+SPEED = 5
 
 RADIUS = 10
 # Define the angles in degrees
@@ -42,54 +42,56 @@ class Ball:
         self.x = bar_x + BAR_WIDTH//2
         self.y = bar_y - BAR_HEIGHT//2
     
-    def update(self, bar_x, bar_y):
+    def update(self, bar, bar_x, bar_y):
         if keyboard.is_pressed('return'):
             self.on_hold = False
 
         if self.on_hold:
             self.sticking(bar_x, bar_y)
         else:
-            self.check_wall_colission()
-            self.check_bar_colission(bar_x, bar_y)
+            self.check_wall_collision()
+            self.check_bar_collision(bar)
             self.move()
     
 
     # Changing direction based on the corner of the ball hits.
-    def right_colission(self):
+    def right_collision(self):
         if self.current_angle == 315:
             self.current_angle = 225
         elif self.current_angle == 45:
             self.current_angle = 135
     
-    def left_colission(self):
+    def left_collision(self):
         if self.current_angle == 135:
             self.current_angle = 45
         elif self.current_angle == 225:
             self.current_angle = 315
     
-    def top_colission(self):
+    def top_collision(self):
         if self.current_angle == 315:
             self.current_angle = 45
         elif self.current_angle == 225:
             self.current_angle = 135
     
-    def bot_colission(self):
+    def bot_collision(self):
         if self.current_angle == 45:
             self.current_angle = 315
         elif self.current_angle == 135:
             self.current_angle = 225
     
-    #Check Colissions:
-    def check_wall_colission(self):
+    #Check collisions:
+    def check_wall_collision(self):
         if self.x - 10 <= 0:
-            self.left_colission()
+            self.left_collision()
         elif self.x + 10 >= 1200:
-            self.right_colission()
+            self.right_collision()
         
         if self.y - 10 <= 0:
-            self.top_colission()
+            self.top_collision()
     
-    def check_bar_colission(self, bar_x, bar_y):
-        if self.x >= bar_x and self.x <= bar_x + BAR_WIDTH:
-            if self.y == bar_y - BAR_HEIGHT:
-                self.bot_colission()
+
+    def check_bar_collision(self, bar):
+        if bar.rect.colliderect(Rect(self.x - RADIUS, self.y - RADIUS, RADIUS * 2, RADIUS * 2)):
+            self.bot_collision()
+
+    #Bricks Collisions are in the bricks.py, because it's more optimal in that class, bad structure by me
