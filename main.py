@@ -1,22 +1,24 @@
-import tkinter as tk
 from bar import Bar
-import time
+from ball import Ball
+import pgzrun
+import keyboard
 
-############################## GLOBAL VARIABLES ##############################
-BG_COLOR = "#EA738D"
+# Set the window dimensions using WIDTH and HEIGHT variables
+WIDTH = 1200
+HEIGHT = 600
 
-# Create the main window
-root = tk.Tk()
-bar = Bar(root)
-root.configure(bg=BG_COLOR)
+bar = Bar()
+ball = Ball(bar.x, bar.y)
 
-# Set the window size
-window_width = 1200
-window_height = 600
-root.geometry(f"{window_width}x{window_height}")
+def update():
+    bar.update()
+    ball.update(bar.x, bar.y)
+    
 
-# Bind key events to the move_bar function
-root.bind("<KeyPress>", bar.move_bar)
+def draw():
+    screen.clear()
+    bar.draw(screen)
+    ball.draw(screen)
 
-# Start the Tkinter event loop
-root.mainloop()
+
+pgzrun.go()
