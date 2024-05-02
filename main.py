@@ -19,13 +19,17 @@ player_won = False
 
 # Function to display user interface elements
 def draw_ui():
-    # Display score, lives, etc.
-    screen.draw.text("Score: 0", (10, 10), color="white")
+    pass
 
 # Function to check win conditions
 def check_win_condition():
     # Check if all bricks are destroyed
     return len(bricks.bricks) == 0
+
+def check_lose_condition():
+    # If the ball move out of the the window
+    if ball.y > 600:
+        return True
 
 def update():
     global game_over, player_won
@@ -38,9 +42,9 @@ def update():
         if check_win_condition():
             player_won = True
             game_over = True
-    else:
-        # Logic for handling game over state
-        pass
+        
+        if check_lose_condition():
+            game_over = True
 
 def draw():
     screen.clear()
