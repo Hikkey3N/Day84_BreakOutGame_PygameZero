@@ -8,7 +8,7 @@ WIDTH = 1200
 HEIGHT = 600
 
 bar = Bar()
-ball = Ball(bar.x, bar.y)
+ball = Ball()
 
 def update():
     bar.update()

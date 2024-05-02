@@ -33,3 +33,4 @@ class Bar:
             self.move('left')
         elif keyboard.is_pressed('right'):
             self.move('right')
+    
